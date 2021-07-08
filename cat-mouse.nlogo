@@ -1,11 +1,20 @@
+globals [
+  cheese-number
+  max-energy
+]
+
 breed [cats cat]
 breed [mice mouse]
 
 turtles-own [energy]
-
+patches-own [countdown]
 to setup
   clear-all
   reset-ticks
+
+  ;Global Variables initialization
+  set cheese-number 50
+  set max-energy 100
 
   ; Randomly places cats on the environment
   create-cats cat-count [
@@ -51,7 +60,9 @@ end
 ; Adds 50 new cheese to the environment
 ; A cheese is represented by a patch with a yellow color
 to spawn-food
-  ; TODO: implement spawn-food
+  ask n-of cheese-number patches[
+    set pcolor yellow
+  ]
 end
 
 ; Asks all mice to eat cheese if they are in a patch with cheese
@@ -76,6 +87,7 @@ to cat-eat
         die
       ]
       set energy (energy + energy-obtained)
+      if energy > max-energy [set energy max-energy]
     ]
   ]
 end
