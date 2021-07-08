@@ -15,7 +15,7 @@ to setup
   reset-ticks
 
   ;Global Variables initialization
-  set cheese-number 50
+  set cheese-number 100
   set max-energy 100
   set cheese-spawn-time 20
   set cheese-energy 50
@@ -76,7 +76,13 @@ end
 ; Adds 50 new cheese to the environment
 ; A cheese is represented by a patch with a yellow color
 to spawn-food
-  ask n-of cheese-number patches[
+  let empty-patches patches with [pcolor = brown]
+  let empty-patches-count count empty-patches
+  let spawn-count cheese-number
+
+  if empty-patches-count < cheese-number [set spawn-count empty-patches-count]
+
+  ask n-of spawn-count empty-patches[
     set pcolor yellow
   ]
 end
@@ -166,8 +172,8 @@ GRAPHICS-WINDOW
 16
 -16
 16
-1
-1
+0
+0
 1
 ticks
 30.0
@@ -181,7 +187,7 @@ cat-count
 cat-count
 1
 100
-100.0
+50.0
 1
 1
 NIL
@@ -211,7 +217,7 @@ cat-reproduction-probability
 cat-reproduction-probability
 0
 100
-2.0
+10.0
 1
 1
 %
@@ -273,7 +279,7 @@ mouse-reproduction-probability
 mouse-reproduction-probability
 0
 100
-2.0
+10.0
 1
 1
 %
