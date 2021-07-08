@@ -2,6 +2,7 @@ globals [
   cheese-number
   max-energy
   cheese-spawn-time
+  cheese-energy
 ]
 
 breed [cats cat]
@@ -17,6 +18,7 @@ to setup
   set cheese-number 50
   set max-energy 100
   set cheese-spawn-time 20
+  set cheese-energy 50
 
   ; Randomly places cats on the environment
   create-cats cat-count [
@@ -72,7 +74,11 @@ end
 ; The default color of the patch without cheese is brown
 to mouse-eat
   ask mice [
-    ; TODO: Implement mouse-eat
+    if pcolor = yellow [
+    set pcolor brown
+    set energy energy + cheese-energy  ; sheep gain energy by eating
+    if energy > max-energy [ set energy max-energy ]
+  ]
   ]
 end
 
@@ -89,7 +95,7 @@ to cat-eat
         die
       ]
       set energy (energy + energy-obtained)
-      ;if energy > max-energy [set energy max-energy]
+      if energy > max-energy [set energy max-energy]
     ]
   ]
 end
