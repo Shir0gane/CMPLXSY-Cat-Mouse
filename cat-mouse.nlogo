@@ -60,8 +60,8 @@ to go
     user-message "500 ticks have been reached"
   ]
 
-  if ticks = 15000 [
-    user-message "15000 ticks have been reached"
+  if ticks = 500000 [
+    user-message "500,000 ticks have been reached"
     stop
   ]
 
