@@ -81,10 +81,18 @@ to cat-eat
 end
 
 ; Spawns a new agent based on the rep-prob variable of the parent agent
-; The energy is divided of the original parent is divided between the parent and the spawned child
+; The energy of the original parent is divided between the parent and the spawned child
 to reproduce-animal
   ask turtles[
-    ; TODO: Implement reproduce-animal
+    let rep-prob 0
+    ifelse breed = cats [set rep-prob cat-reproduction-probability] [set rep-prob mouse-reproduction-probability]
+    if random 100 < rep-prob[
+      let energy-divided (int (energy / 2))
+      if energy > 0[
+        hatch 1 [set energy energy-divided]
+        set energy energy-divided
+      ]
+    ]
   ]
 end
 
@@ -233,7 +241,7 @@ mouse-reproduction-probability
 mouse-reproduction-probability
 0
 100
-30.0
+20.0
 1
 1
 %
