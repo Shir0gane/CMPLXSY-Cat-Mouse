@@ -1,6 +1,7 @@
 globals [
   cheese-number
   max-energy
+  cheese-spawn-time
 ]
 
 breed [cats cat]
@@ -15,6 +16,7 @@ to setup
   ;Global Variables initialization
   set cheese-number 50
   set max-energy 100
+  set cheese-spawn-time 20
 
   ; Randomly places cats on the environment
   create-cats cat-count [
@@ -46,7 +48,7 @@ to go
   if count turtles = 0 [
     stop
   ]
-  if ticks mod 20 = 0[
+  if ticks mod cheese-spawn-time = 0 and ticks != 0[
     spawn-food
   ]
   mouse-eat
@@ -87,7 +89,7 @@ to cat-eat
         die
       ]
       set energy (energy + energy-obtained)
-      if energy > max-energy [set energy max-energy]
+      ;if energy > max-energy [set energy max-energy]
     ]
   ]
 end
