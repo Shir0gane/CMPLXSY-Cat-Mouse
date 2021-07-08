@@ -210,7 +210,7 @@ cat-reproduction-probability
 cat-reproduction-probability
 0
 100
-10.0
+2.0
 1
 1
 %
@@ -272,7 +272,7 @@ mouse-reproduction-probability
 mouse-reproduction-probability
 0
 100
-20.0
+2.0
 1
 1
 %
