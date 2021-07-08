@@ -6,6 +6,7 @@ globals [
   is-agent-extinct-informed
   is-food-extinct-informed
   is-500-ticks-informed
+  is-all-agent-extinct-informed
 ]
 
 breed [cats cat]
@@ -25,6 +26,7 @@ to setup
   set is-agent-extinct-informed false
   set is-food-extinct-informed false
   set is-500-ticks-informed false
+  set is-all-agent-extinct-informed false
 
   ; Randomly places cats on the environment
   create-cats cat-count [
@@ -58,8 +60,14 @@ to go
     user-message "500 ticks have been reached"
   ]
 
-  if count turtles = 0 [
+  if ticks = 15000 [
+    user-message "15000 ticks have been reached"
     stop
+  ]
+
+  if count turtles = 0 and not is-all-agent-extinct-informed[
+    set is-all-agent-extinct-informed true
+    user-message "All agents have died"
   ]
 
   if count cats = 0 and count mice != 0 and not is-agent-extinct-informed[
