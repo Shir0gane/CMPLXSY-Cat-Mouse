@@ -50,6 +50,17 @@ to go
   if count turtles = 0 [
     stop
   ]
+
+  if count cats = 0 and count mice != 0[
+    user-message "Mice win"
+    stop
+  ]
+
+  if count mice = 0 and count cats != 0[
+    user-message "Cats win"
+    stop
+  ]
+
   if ticks mod cheese-spawn-time = 0 and ticks != 0[
     spawn-food
   ]
@@ -75,10 +86,10 @@ end
 to mouse-eat
   ask mice [
     if pcolor = yellow [
-    set pcolor brown
-    set energy energy + cheese-energy  ; sheep gain energy by eating
-    if energy > max-energy [ set energy max-energy ]
-  ]
+      set pcolor brown
+      set energy energy + cheese-energy  ; sheep gain energy by eating
+      if energy > max-energy [ set energy max-energy ]
+    ]
   ]
 end
 
