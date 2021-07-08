@@ -47,6 +47,7 @@ to setup
 end
 
 to go
+  if ticks >= 500 [ stop ] ; Stop procedure at 500 ticks
   if count turtles = 0 [
     stop
   ]
@@ -145,10 +146,10 @@ to-report coin-flip?
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-300
-26
-737
-464
+339
+19
+776
+457
 -1
 -1
 13.0
@@ -172,25 +173,25 @@ ticks
 30.0
 
 SLIDER
-15
-62
-187
-95
+12
+32
+184
+65
 cat-count
 cat-count
 1
 100
-20.0
+100.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-14
-104
-186
-137
+11
+74
+183
+107
 cat-initial-energy
 cat-initial-energy
 0
@@ -202,10 +203,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-13
-147
-233
-180
+10
+117
+230
+150
 cat-reproduction-probability
 cat-reproduction-probability
 0
@@ -217,10 +218,10 @@ cat-reproduction-probability
 HORIZONTAL
 
 BUTTON
-18
-387
-81
-420
+10
+312
+73
+345
 NIL
 setup
 NIL
@@ -234,10 +235,10 @@ NIL
 1
 
 SLIDER
-17
-235
-189
-268
+10
+186
+182
+219
 mouse-count
 mouse-count
 1
@@ -249,10 +250,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-18
-276
-190
-309
+11
+227
+183
+260
 mouse-initial-energy
 mouse-initial-energy
 1
@@ -264,10 +265,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-16
-315
-255
-348
+9
+266
+248
+299
 mouse-reproduction-probability
 mouse-reproduction-probability
 0
@@ -279,10 +280,10 @@ mouse-reproduction-probability
 HORIZONTAL
 
 BUTTON
-100
-388
-163
-421
+81
+312
+144
+345
 NIL
 go
 T
@@ -296,24 +297,97 @@ NIL
 1
 
 TEXTBOX
-18
-40
-168
-58
+15
+10
+165
+28
 Cat Agent Initial Variables
 11
 0.0
 1
 
 TEXTBOX
-21
-213
-171
-231
+14
+164
+164
+182
 Mouse Agent Initial Variables
 11
 0.0
 1
+
+PLOT
+11
+361
+315
+537
+Total Population and Food
+ticks
+count
+0.0
+10.0
+0.0
+10.0
+true
+true
+"" ""
+PENS
+"cats" 1.0 0 -13345367 true "" "plot count cats"
+"mice" 1.0 0 -10899396 true "" "plot count mice"
+"cheese" 1.0 0 -1184463 true "" "plot count patches with [pcolor = yellow]"
+
+TEXTBOX
+577
+465
+639
+483
+Total Food
+11
+0.0
+1
+
+TEXTBOX
+447
+467
+540
+485
+Total Population
+11
+0.0
+1
+
+MONITOR
+447
+489
+497
+534
+Cat
+count cats
+17
+1
+11
+
+MONITOR
+504
+489
+554
+534
+Mice
+count mice
+17
+1
+11
+
+MONITOR
+577
+489
+634
+534
+Cheese
+count patches with [pcolor = yellow]
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
