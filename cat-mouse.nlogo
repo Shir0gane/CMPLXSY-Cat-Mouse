@@ -84,9 +84,14 @@ end
 ; If after moving, agent has no energy, the agent dies
 to move-animal
   ask turtles [
-    ; TODO: Implement move-animal
+    right random 20
+    left random 20
+    forward random 20
+    set energy energy - 1
+    if energy < 0 [die]
   ]
 end
+
 
 to-report coin-flip?
   report random 2 = 0
