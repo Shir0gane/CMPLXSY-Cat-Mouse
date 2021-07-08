@@ -68,7 +68,15 @@ end
 ; The energy of the mice is transferred to the cat
 to cat-eat
   ask cats[
-    ; TODO: Implement cat eat
+    let prey one-of mice-here
+    let energy-obtained 0
+    if prey != nobody[
+      ask prey [
+        set energy-obtained energy
+        die
+      ]
+      set energy (energy + energy-obtained)
+    ]
   ]
 end
 
@@ -86,7 +94,7 @@ to move-animal
   ask turtles [
     right random 20
     left random 20
-    forward random 20
+    forward 1
     set energy energy - 1
     if energy < 0 [die]
   ]
