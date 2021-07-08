@@ -3,6 +3,9 @@ globals [
   max-energy
   cheese-spawn-time
   cheese-energy
+  is-agent-extinct-informed
+  is-food-extinct-informed
+  is-500-ticks-informed
 ]
 
 breed [cats cat]
@@ -19,6 +22,9 @@ to setup
   set max-energy 100
   set cheese-spawn-time 20
   set cheese-energy 50
+  set is-agent-extinct-informed false
+  set is-food-extinct-informed false
+  set is-500-ticks-informed false
 
   ; Randomly places cats on the environment
   create-cats cat-count [
@@ -47,19 +53,28 @@ to setup
 end
 
 to go
-  if ticks >= 500 [ stop ] ; Stop procedure at 500 ticks
+  if ticks = 500 and not is-500-ticks-informed [  ; Pause procedure at 500 ticks
+    set is-500-ticks-informed true
+    user-message "500 ticks have been reached"
+  ]
+
   if count turtles = 0 [
     stop
   ]
 
-  if count cats = 0 and count mice != 0[
-    user-message "Mice win"
-    stop
+  if count cats = 0 and count mice != 0 and not is-agent-extinct-informed[
+    set is-agent-extinct-informed true
+    user-message "Cats have all died"
   ]
 
-  if count mice = 0 and count cats != 0[
-    user-message "Cats win"
-    stop
+  if count mice = 0 and count cats != 0 and not is-agent-extinct-informed[
+    set is-agent-extinct-informed true
+    user-message "Mice have all died"
+  ]
+
+  if (count (patches with [pcolor = yellow])) = 0 and not is-food-extinct-informed[
+    set is-food-extinct-informed true
+    user-message "Cheese count reached zero"
   ]
 
   if ticks mod cheese-spawn-time = 0 and ticks != 0[
