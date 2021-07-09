@@ -4,16 +4,13 @@ globals [
   cheese-spawn-time
   cheese-energy
   is-agent-extinct-informed
-  is-food-extinct-informed
-  is-500-ticks-informed
-  is-all-agent-extinct-informed
 ]
 
 breed [cats cat]
 breed [mice mouse]
 
 turtles-own [energy]
-patches-own [countdown]
+
 to setup
   clear-all
   reset-ticks
@@ -24,9 +21,6 @@ to setup
   set cheese-spawn-time 20
   set cheese-energy 50
   set is-agent-extinct-informed false
-  set is-food-extinct-informed false
-  set is-500-ticks-informed false
-  set is-all-agent-extinct-informed false
 
   ; Randomly places cats on the environment
   create-cats cat-count [
@@ -55,37 +49,25 @@ to setup
 end
 
 to go
-  if ticks = 500 and not is-500-ticks-informed [  ; Pause procedure at 500 ticks
-    set is-500-ticks-informed true
-    user-message "500 ticks have been reached"
-  ]
-
-  if ticks = 500000 [
-    user-message "500,000 ticks have been reached"
+  if count turtles = 0 [
+    user-message "All agents have died"
     stop
   ]
 
-  if count turtles = 0 and not is-all-agent-extinct-informed[
-    set is-all-agent-extinct-informed true
-    user-message "All agents have died"
-  ]
+  let current-cat-count count cats
+  let current-mouse-count count mice
 
-  if count cats = 0 and count mice != 0 and not is-agent-extinct-informed[
+  if not is-agent-extinct-informed and current-cat-count = 0 and current-mouse-count != 0 [
     set is-agent-extinct-informed true
     user-message "Cats have all died"
   ]
 
-  if count mice = 0 and count cats != 0 and not is-agent-extinct-informed[
+  if not is-agent-extinct-informed and current-mouse-count = 0 and current-cat-count != 0 [
     set is-agent-extinct-informed true
     user-message "Mice have all died"
   ]
 
-  if (count (patches with [pcolor = yellow])) = 0 and not is-food-extinct-informed[
-    set is-food-extinct-informed true
-    user-message "Cheese count reached zero"
-  ]
-
-  if ticks mod cheese-spawn-time = 0 and ticks != 0[
+  if ticks mod cheese-spawn-time = 0 and ticks != 0 [
     spawn-food
   ]
   mouse-eat
